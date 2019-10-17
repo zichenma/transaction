@@ -29,17 +29,18 @@ class Home extends Component {
                     "iban": "PS828FY1714093005050080097054",
                     "bic": "JFEOIEQ1"
                 }
+            ],
+            filterParams : [
+                {'accountName': ['Savings Account']},
+                {'transactionType': ['deposit']}
             ]
-        },
-        filterParams : [
-            {'accountName': ['Savings Account']},
-            {'transactionType': ['deposit']}
-        ]
+        }
+     
     }
     
     filter(data, params) {
         return params.map(param => {
-            param['']
+            return param
         })
     }
   
