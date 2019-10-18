@@ -1,4 +1,4 @@
-import * as constants from './constants';
+import * as constants from './actionTypes';
 import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
@@ -7,7 +7,7 @@ const defaultState = fromJS({
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case constants.CHANGE_LIST :
+        case constants.INIT_LIST_ACTION :
            return state.set('list', action.data);
         default: 
            return state;

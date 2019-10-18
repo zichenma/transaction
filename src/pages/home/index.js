@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import  { actionCreators } from './store';
 import { HomeWrapper, FilterGroup } from './style';
@@ -10,35 +10,13 @@ class Home extends Component {
     constructor(props){
         super(props)
         this.state = {
-            data : [
-                 {
-                    "account": "85225264",
-                    "accountName": "Savings Account",
-                    "mask": "0124",
-                    "amount": 588.59,
-                    "transactionType": "deposit",
-                    "currencyCode": "PAB USD",
-                    "currencyName": "Liberian Dollar",
-                    "currencySymbol": "лв",
-                    "iban": "NO2607790970023",
-                    "bic": "YWGIGPX1"
-                },
-                {
-                    "account": "67442173",
-                    "accountName": "Checking Account",
-                    "mask": "9572",
-                    "amount": 890.66,
-                    "transactionType": "withdrawal",
-                    "currencyCode": "DKK",
-                    "currencyName": "Codes specifically reserved for testing purposes",
-                    "currencySymbol": "₫",
-                    "iban": "PS828FY1714093005050080097054",
-                    "bic": "JFEOIEQ1"
-                }
-            ],
             filters : {}
         }
-     
+    }
+
+    componentDidMount() {
+        const { handleGetList, list } = this.props;
+        handleGetList(list);
     }
     
     filterByConditions(data, filters) {
@@ -49,6 +27,8 @@ class Home extends Component {
     }
   
     render() {
+        const { list } = this.props;
+        const newList = list.toJS();
         return (
         <HomeWrapper>
             <FilterGroup>
@@ -56,19 +36,24 @@ class Home extends Component {
                 <Filter />
                 <Filter />
             </FilterGroup>
-            <Table />
+            <Table data={newList}/>
         </HomeWrapper>
         )
     }
 }
 
 const mapStateToProps = (state) => {
+    return {
+        list: state.getIn(['home', 'list']),
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+        handleGetList(list){
+            (list.size === 0) && dispatch(actionCreators.getList());
+        }
     }
 };
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
