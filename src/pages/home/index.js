@@ -1,4 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import  { actionCreators } from './store';
+import { HomeWrapper, FilterGroup } from './style';
+import Filter from '../../common/filter';
+import Table from './components/table';
+ 
 
 class Home extends Component {
     constructor(props){
@@ -30,25 +36,39 @@ class Home extends Component {
                     "bic": "JFEOIEQ1"
                 }
             ],
-            filterParams : [
-                {'accountName': ['Savings Account']},
-                {'transactionType': ['deposit']}
-            ]
+            filters : {}
         }
      
     }
     
-    filter(data, params) {
-        return params.map(param => {
-            return param
-        })
+    filterByConditions(data, filters) {
+        const useConditions = search => item => Object.keys(search).every(k => 
+        Array.isArray(search[k]) && search[k].includes(item[k])
+        );
+        return data.filter(useConditions(filters));
     }
   
     render() {
         return (
-        <div>data</div>
+        <HomeWrapper>
+            <FilterGroup>
+                <h1>Filter</h1>
+                <Filter />
+                <Filter />
+            </FilterGroup>
+            <Table />
+        </HomeWrapper>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        
+    }
+};
 
 export default Home;

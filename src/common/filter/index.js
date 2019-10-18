@@ -1,14 +1,18 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
+import  { FilterWrapper } from './style';
+import CheckBox from '../checkbox';
 
 
-class Filter extends Component {
-    render () {
-        return (
-            <Fragment>
-                ~Filter
-            </Fragment>
-        )
-    }
+const Filter = data => {
+    return (
+        <FilterWrapper>
+            <h3>Filter Title</h3>
+            <CheckBox />
+            <CheckBox />
+            <CheckBox />
+            <CheckBox />
+        </FilterWrapper>
+    )
 }
 
 export default Filter;
