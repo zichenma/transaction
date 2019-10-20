@@ -2,11 +2,11 @@ import React from 'react';
 import { CheckBoxWrapper } from './style';
 
 
-const CheckBox = () => {
+const CheckBox = ({label}) => {
     return (
         <CheckBoxWrapper>
             <label>
-                One
+                {label}
                 <input type="checkbox" />
                 <span className="checkmark"></span>
             </label>
