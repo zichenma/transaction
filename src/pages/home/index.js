@@ -26,8 +26,8 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        const { handleGetList, list } = this.props;
-        handleGetList(list);
+        const { handleGetList, list, startIdx, endIdx } = this.props;
+        handleGetList(list, startIdx, endIdx);
     }
 
     cleanObj (obj) {
@@ -84,9 +84,18 @@ class Home extends Component {
                 return acc;
         },new Set())
     }
+
+    handlePrev = (startIdx, endIdx) => {
+        console.log(startIdx, endIdx)
+    }
+
+    handleNext = () => {
+        const { handleGetList, list, startIdx, endIdx } = this.props;
+        handleGetList(list, startIdx + 20, endIdx + 20);
+    }
   
     render() {
-        const { list, handlePrev, handleNext } = this.props;
+        const { list, startIdx, endIdx, handleGetList } = this.props;
         const { filters } =  this.state;
         const selectedData = list.toJS();
         const accountfilterData = selectedCols(selectedData, ACCOUNT_FILTER_SCHEMA.NAMES);
@@ -105,7 +114,8 @@ class Home extends Component {
                 </FilterGroup>
                 <Table data={this.filterByConditions(selectedData, filters)} isAccountNumSet={this.isAccountNumSet(accountNumData)}/>
             </Main>
-            <Pagination handlePrev={handlePrev} handleNext={handleNext} />
+            <Pagination handlePrev={(list, startIdx, endIdx) => handleGetList(list, startIdx, endIdx)} handleNext={this.handleNext} />
+
         </HomeWrapper>
         )
     }
@@ -114,20 +124,22 @@ class Home extends Component {
 const mapStateToProps = (state) => {
     return {
         list: state.getIn(['home', 'list']),
+        startIdx: state.getIn(['home', 'startIdx']),
+        endIdx: state.getIn(['home', 'endIdx']),
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleGetList(list){
-            (list.size === 0) && dispatch(actionCreators.getList());
+        handleGetList(list, startIdx, endIdx){
+            dispatch(actionCreators.getList(startIdx, endIdx));
         },
-        handlePrev() {
-            dispatch(actionCreators.getPrev());
-        },
-        handleNext() {
-            dispatch(actionCreators.getNext());
-        }
+        // handlePrev(list, startIdx, endIdx) {
+        //     (list.size === 0) && dispatch(actionCreators.getPrev(startIdx, endIdx));;
+        // },
+        // handleNext(list, startIdx, endIdx) {
+        //     (list.size === 0) && dispatch(actionCreators.getNext(startIdx, endIdx));
+        // }
     }
 };
 

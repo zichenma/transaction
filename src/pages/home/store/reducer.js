@@ -12,14 +12,13 @@ export default (state = defaultState, action) => {
         case constants.INIT_LIST_ACTION :
            return state.set('list', action.data)
         case constants.GET_PREV :
+          console.log(action.payload.startIdx)
            return state.merge({
-             list:action.payload.data,
              'startIdx' : action.payload.startIdx,
              'endIdx': action.payload.endIdx
            })
         case constants.GET_NEXT:
             return state.merge({
-             list:action.payload.data,
              'startIdx' : action.payload.startIdx,
              'endIdx': action.payload.endIdx
            })
