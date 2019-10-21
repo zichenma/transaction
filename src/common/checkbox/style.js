@@ -15,6 +15,9 @@ export const CheckBoxWrapper = styled.div`
   &:hover input ~ .checkmark {
     background-color: #ccc;
   }
+  label {
+     text-transform: capitalize;
+  }
   input {
     position: absolute;
     opacity: 0;

@@ -29,7 +29,10 @@ class Home extends Component {
         const { handleGetList, list, startIdx, endIdx } = this.props;
         handleGetList(list, startIdx, endIdx);
     }
-
+    
+    // if filter field has empty array, remove its property
+    // e.g. {"transactionType": ["deposit"], "accountName": []} =>
+    // {"transactionType": ["deposit"]}
     cleanObj (obj) {
         return Object.keys(obj) 
             .filter(key => obj[key].length !== 0)
@@ -39,6 +42,8 @@ class Home extends Component {
             }, {})
     }
 
+    // By clicking the checkbox to create filter schema for filterByConditions to use
+    // e.g. filter schema : {"transactionType": ["deposit", ...], "accountName": ["Auto Loan Account",...]}
     getFilterConditions = (title, label, checked) =>  {
         const accountTitle = ACCOUNT_FILTER_SCHEMA.NAMES[0];
         const transactionTitle = TRANSACTION_FILTER_SCHEMA.NAMES[0];
@@ -61,13 +66,16 @@ class Home extends Component {
         })
     }
 
+    // filter the source data according to the filter schema which is provided by getFilterConditions
     filterByConditions(data, filters) {
         const useConditions = search => item => Object.keys(search).every(k => 
             Array.isArray(search[k]) && search[k].includes(item[k])
         );
         return data.filter(useConditions(filters));
     }
-
+    
+    // input : e.g.{transactionType: "deposit"}
+    // output : transactionType: ["deposit", "withdrawal", "invoice", "payment"]
     filterFields = (data, fields)  => {
         const key = fields[0];
         const filterInfo = {};
@@ -77,7 +85,10 @@ class Home extends Component {
         filterInfo[key] = value;
         return filterInfo;
     }
-
+    
+    // input:  e.g. {account: "85225264"}
+    // output: account: set("85225264, ...")
+    // for check if field is account to make accout as a link in <Table>
     isAccountNumSet = (data) => {
         return data.reduce((acc, item) => {
                 acc.add(Object.values(item)[0]);
@@ -87,13 +98,13 @@ class Home extends Component {
 
     handlePrev = () => {
         const { handleGetList, list, startIdx, endIdx } = this.props;
-        const range = endIdx - startIdx
+        const range = endIdx - startIdx;
         handleGetList(list, startIdx - range, endIdx - range);
     }
 
     handleNext = () => {
         const { handleGetList, list, startIdx, endIdx } = this.props;
-        const range = endIdx - startIdx
+        const range = endIdx - startIdx;
         handleGetList(list, startIdx + range, endIdx + range);
     }
   
@@ -118,7 +129,6 @@ class Home extends Component {
                 <Table data={this.filterByConditions(selectedData, filters)} isAccountNumSet={this.isAccountNumSet(accountNumData)}/>
             </Main>
             <Pagination handlePrev={this.handlePrev} handleNext={this.handleNext} />
-
         </HomeWrapper>
         )
     }

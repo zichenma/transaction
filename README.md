@@ -1,3 +1,29 @@
+Project Start Instruction:
+
+Please make sure node.js has been installed
+
+Clone this project to your local machine :
+
+### `git clone https://github.com/zichenma/transaction.git`
+
+Go in to the project folder:
+
+### `cd transaction`
+
+Install all dependencies:
+
+### `npm install`
+
+Start Json Server (make sure the port 3200 is available): 
+
+### `json-server --watch data/data.json --port 3200`
+
+Start React Application: 
+
+### `npm start`
+
+For more info about react app: 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

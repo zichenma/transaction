@@ -25,6 +25,7 @@ export const selectedCols = (data, fields) => {
         }, {}));
 }
 
+// accountName => accout Name :
 export const camelcaseToWords = (str) => {
     if (str && str.length === 0) return '';
     return str.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1");
