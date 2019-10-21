@@ -14,6 +14,10 @@ Install all dependencies:
 
 ### `npm install`
 
+Install json server:
+
+### `npm install json-server — save-dev`
+
 Start Json Server (make sure the port 3200 is available): 
 
 ### `json-server --watch data/data.json --port 3200`
