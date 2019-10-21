@@ -1,7 +1,7 @@
 import React from 'react';
 import store from './store';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './pages/home';
 import Detail from './pages/detail';
 
@@ -11,13 +11,13 @@ function App() {
     <Provider store={store}>
        <div>
         <BrowserRouter>
-          <div>
+          <Switch>
             <Route path='/' exact component={Home}></Route>
-            <Route path='/detail' exact component={Detail}></Route>
-          </div>
+            <Route path='/:account_id'  component={Detail}></Route>
+          </Switch>
         </BrowserRouter>
        </div>
-      </Provider>
+    </Provider>
   );
 }
 

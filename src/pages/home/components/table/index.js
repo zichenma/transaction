@@ -1,5 +1,7 @@
 import React from 'react';
 import {TableWrapper} from './style';
+import { Link } from 'react-router-dom';
+
 
 const renderThead = colNames => {
     return (
@@ -11,22 +13,35 @@ const renderThead = colNames => {
     )
 }
 
-const renderTbody = data => {
+const renderTbody = (data, isAccountNumSet) => {
     return (
          <tbody>
-            {data.map((items,index) => <tr key={index}>{items.map((item,index) => <td key={index}>{item}</td>)}</tr>)}
+            {data.map((items,index) => <tr key={index + items[0]}>{items.map((item,index) => renderTd(item, index, isAccountNumSet))}</tr>)}
         </tbody> 
     )
 }
 
-const Table = ({data}) => {
+const renderTd = (item, index, isAccountNumSet) => {
+    if (isAccountNumSet.has(item)) {
+        return (
+        <td key={index + item}>
+            <Link to={'/' + item}>
+                {item}
+            </Link>
+        </td>);
+    }  else {
+        return <td key={index + item}>{item}</td>;
+    }
+}
+
+const Table = ({data, isAccountNumSet}) => {
     const headData = data[0] && Object.keys(data[0]);
-    const tableData = data.slice(0, 24).map(item => Object.values(item));
+    const tableData = data.map(item => Object.values(item));
     return (
         <TableWrapper>
         <table>
             {renderThead(headData)}
-            {renderTbody(tableData)}
+            {renderTbody(tableData, isAccountNumSet)}
         </table>
         </TableWrapper>
     )

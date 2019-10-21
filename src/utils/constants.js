@@ -1,4 +1,7 @@
+export const uri = 'http://localhost:3200/';
+
 export const COLUMN_SCHEMA = {
+    // Sequences will be the table column sequence
     NAMES: ['account', 'accountName', 'currencyCode', 'amount', 'transactionType']
 }
 
@@ -9,3 +12,8 @@ export const ACCOUNT_FILTER_SCHEMA = {
 export const TRANSACTION_FILTER_SCHEMA = {
     NAMES: ['transactionType']
 }
+
+export const ACCOUNT_NUM_SCHEMA = {
+    NAMES: ['account']
+}
+

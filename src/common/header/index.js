@@ -1,9 +1,10 @@
 import React from 'react';
+import { HeaderWrapper } from './style';
 
 
 const Header = ({title}) => {
     return (
-        <div>{title}</div>
+        <HeaderWrapper>{title}</HeaderWrapper>
     )
 }
 
