@@ -85,17 +85,20 @@ class Home extends Component {
         },new Set())
     }
 
-    handlePrev = (startIdx, endIdx) => {
-        console.log(startIdx, endIdx)
+    handlePrev = () => {
+        const { handleGetList, list, startIdx, endIdx } = this.props;
+        const range = endIdx - startIdx
+        handleGetList(list, startIdx - range, endIdx - range);
     }
 
     handleNext = () => {
         const { handleGetList, list, startIdx, endIdx } = this.props;
-        handleGetList(list, startIdx + 20, endIdx + 20);
+        const range = endIdx - startIdx
+        handleGetList(list, startIdx + range, endIdx + range);
     }
   
     render() {
-        const { list, startIdx, endIdx, handleGetList } = this.props;
+        const { list } = this.props;
         const { filters } =  this.state;
         const selectedData = list.toJS();
         const accountfilterData = selectedCols(selectedData, ACCOUNT_FILTER_SCHEMA.NAMES);
@@ -114,7 +117,7 @@ class Home extends Component {
                 </FilterGroup>
                 <Table data={this.filterByConditions(selectedData, filters)} isAccountNumSet={this.isAccountNumSet(accountNumData)}/>
             </Main>
-            <Pagination handlePrev={(list, startIdx, endIdx) => handleGetList(list, startIdx, endIdx)} handleNext={this.handleNext} />
+            <Pagination handlePrev={this.handlePrev} handleNext={this.handleNext} />
 
         </HomeWrapper>
         )
@@ -134,12 +137,6 @@ const mapDispatchToProps = (dispatch) => {
         handleGetList(list, startIdx, endIdx){
             dispatch(actionCreators.getList(startIdx, endIdx));
         },
-        // handlePrev(list, startIdx, endIdx) {
-        //     (list.size === 0) && dispatch(actionCreators.getPrev(startIdx, endIdx));;
-        // },
-        // handleNext(list, startIdx, endIdx) {
-        //     (list.size === 0) && dispatch(actionCreators.getNext(startIdx, endIdx));
-        // }
     }
 };
 

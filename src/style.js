@@ -1,6 +1,7 @@
 import { injectGlobal } from 'styled-components'
 // using styled-component v3
 injectGlobal `
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,500');
  , abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -27,6 +28,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	margin: 5% 15%;
+	font-family: Roboto, sans-serif;
 }
 ol, ul {
 	list-style: none;

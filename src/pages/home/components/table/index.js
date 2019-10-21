@@ -1,13 +1,14 @@
 import React from 'react';
 import {TableWrapper} from './style';
 import { Link } from 'react-router-dom';
+import { camelcaseToWords } from '../../../../utils/utils';
 
 
 const renderThead = colNames => {
     return (
         <thead>
         <tr>
-         { colNames && colNames.map(colName => <th key={colName}>{colName}</th>) }
+         { colNames && colNames.map(colName => <th key={colName}>{camelcaseToWords(colName)}</th>) }
         </tr>
         </thead>
     )

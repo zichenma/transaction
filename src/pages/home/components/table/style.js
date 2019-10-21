@@ -5,9 +5,15 @@ export const TableWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%
 table {
   border-collapse: collapse;
   width: 100%;
+
+}
+
+th {
+  text-transform: uppercase;
 }
 
 th, td {
