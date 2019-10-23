@@ -14,12 +14,11 @@ const initListAction = (data, startIdx, endIdx) => ({
 })
 
 export const getList = (startIdx, endIdx) => {
-    const query = `?_start=${startIdx}&_end=${endIdx}`;
     return async (dispatch) => {
-        const response = await axios.get(`${uri}transactions/${query}`)
+        const response = await axios.get(`${uri}transactions`)
               .catch(err => console.log(err));
-        const data = selectedCols(response.data, COLUMN_SCHEMA.NAMES);
-        const action = initListAction(data,startIdx,endIdx);
+        const alldata = selectedCols(response.data, COLUMN_SCHEMA.NAMES);
+        const action = initListAction(alldata,startIdx,endIdx);
         dispatch(action);
     }
 }

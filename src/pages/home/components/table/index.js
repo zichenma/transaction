@@ -8,7 +8,7 @@ const renderThead = colNames => {
     return (
         <thead>
         <tr>
-         { colNames && colNames.map(colName => <th key={colName}>{camelcaseToWords(colName)}</th>) }
+         { colNames && colNames.map(colName => <th key={colName}>{camelcaseToWords(colName) }</th>) }
         </tr>
         </thead>
     )

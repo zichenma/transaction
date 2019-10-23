@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../../common/header';
 import { DetailWrapper } from './style';
+import { camelcaseToWords } from '../../utils/utils';
 
-class Detail extends Component {
+class Detail extends PureComponent {
     render () {
          const {list, id} = this.props;
          const newList = list.toJS();
@@ -18,7 +19,7 @@ class Detail extends Component {
             </Link>
           <hr />
           <ul>
-              {entries.map(([key, value]) => <li key={key}>{key} : {value}</li> )}
+              {entries.map(([key, value]) => <li key={key}>{camelcaseToWords(key)} : {value}</li>)}
           </ul>
         </DetailWrapper>
         )

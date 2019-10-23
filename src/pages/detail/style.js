@@ -7,6 +7,7 @@ export const DetailWrapper = styled.div`
     li {
         margin-top: 20px;
         font-size: 20px;
+        text-transform: capitalize;
     }
     button {
         margin: 0 30%;

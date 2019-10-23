@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import  { actionCreators } from './store';
 import { HomeWrapper, FilterGroup, Main } from './style';
@@ -13,7 +13,7 @@ import Pagination from '../../common/pagination';
 import Table from './components/table';
 
 
-class Home extends Component {
+class Home extends PureComponent {
     filters = {};
 
     constructor(props){
@@ -68,10 +68,12 @@ class Home extends Component {
 
     // filter the source data according to the filter schema which is provided by getFilterConditions
     filterByConditions(data, filters) {
+        const { startIdx, endIdx } = this.props;
         const useConditions = search => item => Object.keys(search).every(k => 
             Array.isArray(search[k]) && search[k].includes(item[k])
         );
-        return data.filter(useConditions(filters));
+        console.log(startIdx, endIdx);
+        return data.filter(useConditions(filters)).slice(startIdx, endIdx);
     }
     
     // input : e.g.{transactionType: "deposit"}
