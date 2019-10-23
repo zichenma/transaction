@@ -19,6 +19,7 @@ export const getList = (startIdx, endIdx) => {
         // const response = await axios.get(`${uri}transactions`)
         const response = await axios.get('data.json')
               .catch(err => console.log(err));
+        // for local
         // const alldata = selectedCols(response.data, COLUMN_SCHEMA.NAMES);
         const alldata = selectedCols(response.data.transactions, COLUMN_SCHEMA.NAMES);
         const action = initListAction(alldata,startIdx,endIdx);
