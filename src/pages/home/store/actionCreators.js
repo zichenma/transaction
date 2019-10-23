@@ -1,7 +1,7 @@
 import * as constants from './actionTypes';
 import { fromJS } from 'immutable';
 import axios from 'axios';
-import { uri } from '../../../utils/constants';
+// import { uri } from '../../../utils/constants';
 import { selectedCols } from '../../../utils/utils';
 import { COLUMN_SCHEMA } from '../../../utils/constants';
 
