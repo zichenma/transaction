@@ -9,6 +9,11 @@ class Detail extends PureComponent {
     render () {
          const {list, id} = this.props;
          const newList = list.toJS();
+
+         if(list.size === 0) {
+          return window.location.replace('/');
+         }
+         
          const item = newList.find(item => item.account === id);
          const entries =  Object.entries(item);
         return (

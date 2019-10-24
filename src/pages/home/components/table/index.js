@@ -25,7 +25,7 @@ const renderTbody = (data, isAccountNumSet) => {
 const renderTd = (item, index, isAccountNumSet) => {
     if (isAccountNumSet.has(item)) {
         return (
-        <td key={index + item}>
+        <td nowrap key={index + item}>
             <Link to={'/' + item}>
                 {item}
             </Link>
