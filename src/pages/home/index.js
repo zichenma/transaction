@@ -21,6 +21,7 @@ class Home extends PureComponent {
         this.state = {
             filters : {},
             range: props.endIdx - props.startIdx,
+            total: 0
         }
         this.filters[ACCOUNT_FILTER_SCHEMA.NAMES[0]] = [];
         this.filters[TRANSACTION_FILTER_SCHEMA.NAMES[0]] = [];
@@ -29,6 +30,10 @@ class Home extends PureComponent {
 
     componentDidMount() {
         const { handleGetList, list, startIdx, endIdx } = this.props;
+        this.setState({
+            ...this.state,
+            total : list.size
+        })
         handleGetList(list, startIdx, endIdx);
     }
     
@@ -74,6 +79,10 @@ class Home extends PureComponent {
         const useConditions = search => item => Object.keys(search).every(k => 
             Array.isArray(search[k]) && search[k].includes(item[k])
         );
+        this.setState({
+            ...this.state,
+            total : data.filter(useConditions(filters)).length
+        })
         return data.filter(useConditions(filters)).slice(startIdx, endIdx);
     }
     
@@ -112,17 +121,16 @@ class Home extends PureComponent {
     }
 
     calCurrPage = () => {
-        const {  list, startIdx } = this.props;
-        const { range } = this.state;
-        const totalPage = Math.ceil(list.size / range);
+        const {  startIdx } = this.props;
+        const { range, total } = this.state;
+        const totalPage = Math.ceil(total / range);
         const currPage = Math.ceil(startIdx / range) + 1;
         return currPage < 0 ? (totalPage + currPage) : currPage;
     }
 
     calTotalPage = () => {
-        const { list } = this.props;
-        const { range } = this.state;
-        return Math.ceil(list.size / range);
+        const { range, total } = this.state;
+        return Math.ceil(total / range);
     }
 
     render() {
