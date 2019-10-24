@@ -8,7 +8,7 @@ export const TableWrapper = styled.div`
   height: 100%
 table {
   border-collapse: collapse;
- 
+  table-layout: auto;
   width: 100%;
 
 }

@@ -74,7 +74,6 @@ class Home extends PureComponent {
         const useConditions = search => item => Object.keys(search).every(k => 
             Array.isArray(search[k]) && search[k].includes(item[k])
         );
-        console.log('start/end', startIdx, endIdx);
         return data.filter(useConditions(filters)).slice(startIdx, endIdx);
     }
     
@@ -115,7 +114,7 @@ class Home extends PureComponent {
     calCurrPage = () => {
         const {  list, startIdx } = this.props;
         const { range } = this.state;
-        const totalPage = Math.floor(list.size / range);
+        const totalPage = Math.ceil(list.size / range);
         const currPage = Math.ceil(startIdx / range) + 1;
         return currPage < 0 ? (totalPage + currPage) : currPage;
     }
@@ -123,11 +122,9 @@ class Home extends PureComponent {
     calTotalPage = () => {
         const { list } = this.props;
         const { range } = this.state;
-        return Math.floor(list.size / range);
+        return Math.ceil(list.size / range);
     }
 
-    
-  
     render() {
         const { list } = this.props;
         const { filters, showPrev, showNext } =  this.state;

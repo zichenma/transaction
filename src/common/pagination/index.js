@@ -1,24 +1,23 @@
 import React from 'react';
 import  { PageWrapper } from './style';
 
-const hidePrvBtn = (currentPage, totalPage) => {
-    if (currentPage > totalPage) return true;
-    return currentPage <= 0;
+const hidePrvBtn = ( currentPage ) => {
+    return currentPage > 0;
 }
 
 const hideNextBtn = (currentPage, totalPage) => {
-    if (currentPage > totalPage) return true;
-    return  currentPage === totalPage;
+    return  currentPage !== totalPage;
 }
 
 
 const Pagination = ({handlePrev, handleNext, currentPage, totalPage}) => {
-    console.log(currentPage, totalPage)
+    const isHidePrv = hidePrvBtn(currentPage);
+    const isHideNext = hideNextBtn(currentPage, totalPage);
     return (
         <PageWrapper>
-            { hidePrvBtn(currentPage, totalPage) && <button onClick={handlePrev}>Prev</button> }
+            { isHidePrv && <button onClick={handlePrev}>Prev</button> }
             <span>{currentPage}/{totalPage}</span>
-            { hideNextBtn(currentPage, totalPage) && <button onClick={handleNext}>Next</button> }
+            { isHideNext && <button onClick={handleNext}>Next</button> }
         </PageWrapper>
     )
 }
