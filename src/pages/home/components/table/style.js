@@ -22,6 +22,10 @@ th, td {
   padding: 8px;
 }
 
+td {
+  text-transform: capitalize;
+}
+
 tr:nth-child(even) {background-color: #f2f2f2;}
 
 `;

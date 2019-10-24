@@ -4,11 +4,23 @@ import { Link } from 'react-router-dom';
 import { camelcaseToWords } from '../../../../utils/utils';
 
 
+const headerTranslate = colName => {
+    let translatedName = '';
+    if (colName === 'account') {
+        translatedName = 'account no.';
+    } else  if (colName === 'currencyCode') {
+        translatedName = 'currency';
+    } else {
+        translatedName = colName;
+    }
+    return translatedName;
+}
+
 const renderThead = colNames => {
     return (
         <thead>
         <tr>
-         { colNames && colNames.map(colName => <th key={colName}>{camelcaseToWords(colName) }</th>) }
+         { colNames && colNames.map(colName => <th key={colName}>{camelcaseToWords(headerTranslate(colName)) }</th>) }
         </tr>
         </thead>
     )

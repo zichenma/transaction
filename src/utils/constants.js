@@ -1,5 +1,3 @@
-export const uri = 'http://localhost:3200/';
-
 export const COLUMN_SCHEMA = {
     // Sequences will be the table column sequence
     NAMES: ['account', 'accountName', 'currencyCode', 'amount', 'transactionType']

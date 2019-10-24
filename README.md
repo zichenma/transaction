@@ -1,4 +1,4 @@
-Project Start Instruction:
+## Project Start Instruction:
 
 Please make sure node.js has been installed
 
@@ -14,17 +14,19 @@ Install all dependencies:
 
 ### `npm install`
 
-Install json server:
-
-### `npm install json-server — save-dev`
-
-Start Json Server (make sure the port 3200 is available): 
-
-### `json-server --watch data/data.json --port 3200`
-
 Start React Application: 
 
 ### `npm start`
+
+## Extra Features: 
+
+Pagination to navigate to next or previous page
+
+Home button to navigate from detail page to home page
+
+## Demo link:
+
+https://transactions-demo.herokuapp.com
 
 For more info about react app: 
 
