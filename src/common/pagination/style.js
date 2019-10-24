@@ -6,5 +6,8 @@ export const PageWrapper = styled.div`
     button {
         margin-left: 20px;
     }
+    span {
+        margin-left: 20px;
+    }
 `;
 

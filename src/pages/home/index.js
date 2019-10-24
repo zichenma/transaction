@@ -19,10 +19,12 @@ class Home extends PureComponent {
     constructor(props){
         super(props)
         this.state = {
-            filters : {}
+            filters : {},
+            range: props.endIdx - props.startIdx,
         }
         this.filters[ACCOUNT_FILTER_SCHEMA.NAMES[0]] = [];
         this.filters[TRANSACTION_FILTER_SCHEMA.NAMES[0]] = [];
+        
     }
 
     componentDidMount() {
@@ -38,7 +40,7 @@ class Home extends PureComponent {
             .filter(key => obj[key].length !== 0)
             .reduce((acc, key) => { 
                 acc[key] = obj[key]
-                return acc
+                return acc;
             }, {})
     }
 
@@ -72,7 +74,6 @@ class Home extends PureComponent {
         const useConditions = search => item => Object.keys(search).every(k => 
             Array.isArray(search[k]) && search[k].includes(item[k])
         );
-        console.log(startIdx, endIdx);
         return data.filter(useConditions(filters)).slice(startIdx, endIdx);
     }
     
@@ -100,19 +101,33 @@ class Home extends PureComponent {
 
     handlePrev = () => {
         const { handleGetList, list, startIdx, endIdx } = this.props;
-        const range = endIdx - startIdx;
+        const { range } = this.state;
         handleGetList(list, startIdx - range, endIdx - range);
     }
 
     handleNext = () => {
         const { handleGetList, list, startIdx, endIdx } = this.props;
-        const range = endIdx - startIdx;
+        const { range } = this.state;
         handleGetList(list, startIdx + range, endIdx + range);
     }
-  
+
+    calCurrPage = () => {
+        const {  list, startIdx } = this.props;
+        const { range } = this.state;
+        const totalPage = Math.ceil(list.size / range);
+        const currPage = Math.ceil(startIdx / range) + 1;
+        return currPage < 0 ? (totalPage + currPage) : currPage;
+    }
+
+    calTotalPage = () => {
+        const { list } = this.props;
+        const { range } = this.state;
+        return Math.ceil(list.size / range);
+    }
+
     render() {
         const { list } = this.props;
-        const { filters } =  this.state;
+        const { filters, showPrev, showNext } =  this.state;
         const selectedData = list.toJS();
         const accountfilterData = selectedCols(selectedData, ACCOUNT_FILTER_SCHEMA.NAMES);
         const accountFilterInfo = this.filterFields(accountfilterData, ACCOUNT_FILTER_SCHEMA.NAMES);
@@ -130,7 +145,12 @@ class Home extends PureComponent {
                 </FilterGroup>
                 <Table data={this.filterByConditions(selectedData, filters)} isAccountNumSet={this.isAccountNumSet(accountNumData)}/>
             </Main>
-            <Pagination handlePrev={this.handlePrev} handleNext={this.handleNext} />
+            <Pagination handlePrev={this.handlePrev} 
+                handleNext={this.handleNext} 
+                currentPage={this.calCurrPage()}  
+                totalPage={this.calTotalPage()}
+                showPrev={showPrev}
+                showNext={showNext}/>
         </HomeWrapper>
         )
     }

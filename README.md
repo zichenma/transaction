@@ -20,15 +20,17 @@ Start React Application:
 
 ## Extra Features: 
 
-Pagination to navigate to next or previous page
+Pagination (previous page, next page, current page, total page)
 
 Home button to navigate from detail page to home page
+
+Customize the table column sequence by adjusting the code parameters
 
 ## Demo link:
 
 https://transactions-demo.herokuapp.com
 
-For more info about react app: 
+## For more info about react app: 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
