@@ -28,7 +28,7 @@ Home button to navigate from detail page to home page
 
 https://transactions-demo.herokuapp.com
 
-For more info about react app: 
+## For more info about react app: 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

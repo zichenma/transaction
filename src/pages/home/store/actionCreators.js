@@ -17,7 +17,7 @@ export const getList = (startIdx, endIdx) => {
     return async (dispatch) => {
         const response = await axios.get('data.json')
               .catch(err => console.log(err));
-        const alldata = selectedCols(response.data.transactions, COLUMN_SCHEMA.NAMES);
+        const alldata = selectedCols(response.data.transactions, COLUMN_SCHEMA.NAMES).slice(0, 100);
         const action = initListAction(alldata,startIdx,endIdx);
         dispatch(action);
     }
