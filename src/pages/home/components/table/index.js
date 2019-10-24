@@ -43,7 +43,7 @@ const renderTd = (item, index, isAccountNumSet) => {
             </Link>
         </td>);
     }  else {
-        return <td key={index + item}>{item}</td>;
+        return <td nowrap="true" key={index + item}>{item}</td>;
     }
 }
 
