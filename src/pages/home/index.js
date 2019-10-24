@@ -21,7 +21,6 @@ class Home extends PureComponent {
         this.state = {
             filters : {},
             range: props.endIdx - props.startIdx,
-            total: 0
         }
         this.filters[ACCOUNT_FILTER_SCHEMA.NAMES[0]] = [];
         this.filters[TRANSACTION_FILTER_SCHEMA.NAMES[0]] = [];
@@ -30,10 +29,6 @@ class Home extends PureComponent {
 
     componentDidMount() {
         const { handleGetList, list, startIdx, endIdx } = this.props;
-        this.setState({
-            ...this.state,
-            total : list.size
-        })
         handleGetList(list, startIdx, endIdx);
     }
     
@@ -75,14 +70,12 @@ class Home extends PureComponent {
 
     // filter the source data according to the filter schema which is provided by getFilterConditions
     filterByConditions(data, filters) {
-        const { startIdx, endIdx } = this.props;
+        const { startIdx, endIdx, handleGetTotal } = this.props;
         const useConditions = search => item => Object.keys(search).every(k => 
             Array.isArray(search[k]) && search[k].includes(item[k])
         );
-        this.setState({
-            ...this.state,
-            total : data.filter(useConditions(filters)).length
-        })
+        const total = data.filter(useConditions(filters)).length;
+        handleGetTotal(total);
         return data.filter(useConditions(filters)).slice(startIdx, endIdx);
     }
     
@@ -129,7 +122,8 @@ class Home extends PureComponent {
     }
 
     calTotalPage = () => {
-        const { range, total } = this.state;
+        const { range } = this.state;
+        const { total } = this.props;
         return Math.ceil(total / range);
     }
 
@@ -169,14 +163,18 @@ const mapStateToProps = (state) => {
         list: state.getIn(['home', 'list']),
         startIdx: state.getIn(['home', 'startIdx']),
         endIdx: state.getIn(['home', 'endIdx']),
+        total: state.getIn(['home', 'total'])
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleGetList(list, startIdx, endIdx){
+        handleGetList(list, startIdx, endIdx) {
             dispatch(actionCreators.getList(startIdx, endIdx));
         },
+        handleGetTotal(total) {
+            dispatch(actionCreators.getTotalAction(total));
+        }
     }
 };
 

@@ -13,6 +13,11 @@ const initListAction = (data, startIdx, endIdx) => ({
     endIdx
 })
 
+export const getTotalAction = total => ({
+    type: constants.GET_TOTAL,
+    total
+})
+
 export const getList = (startIdx, endIdx) => {
     return async (dispatch) => {
         const response = await axios.get('data.json')
