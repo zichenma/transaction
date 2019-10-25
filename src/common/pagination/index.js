@@ -1,8 +1,8 @@
 import React from 'react';
 import  { PageWrapper } from './style';
 
-const hidePrvBtn = ( currentPage ) => {
-    return currentPage > 0;
+const hidePrvBtn = currentPage => {
+    return currentPage > 1;
 }
 
 const hideNextBtn = (currentPage, totalPage) => {
